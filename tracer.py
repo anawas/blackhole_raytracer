@@ -11,8 +11,9 @@ import multiprocessing as multi
 import ctypes
 
 import logging
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.DEBUG)
+logger = logging.getLogger("trace logger")
+logging.getLogger('matplotlib.font_manager').disabled = True
 
 #importing scene
 try:
@@ -126,7 +127,7 @@ defaults = {
             }
 
 cfp = configparser.ConfigParser(defaults)
-logger.debug("Reading scene %s...", SCENE_FNAME)
+logger.debug(">>>>  Reading scene %s...", SCENE_FNAME)
 cfp.read(SCENE_FNAME)
 
 
@@ -170,8 +171,8 @@ try:
     NITER = int(cfp.get('lofi','Iterations'))
     STEP = float(cfp.get('lofi','Stepsize'))
 except (KeyError, configparser.NoSectionError):
-    logger.debug("error reading scene file: insufficient data in lofi section")
-    logger.debug("using defaults.")
+    logger.debug(">>>> error reading scene file: insufficient data in lofi section")
+    logger.debug(">>>> using defaults.")
 
 
 if not LOFI:
@@ -313,7 +314,7 @@ def rgbtosrgb(arr):
     arr[mask] **= 1/2.4
     arr[mask] *= 1.055
     arr[mask] -= 0.055
-    arr[-mask] *= 12.92
+    arr[~mask] *= 12.92
 
 
 # convert from srgb to linear rgb
@@ -323,7 +324,7 @@ def srgbtorgb(arr):
     arr[mask] += 0.055
     arr[mask] /= 1.055
     arr[mask] **= 2.4
-    arr[-mask] /= 12.92
+    arr[~mask] /= 12.92
 
 
 logger.debug("Loading textures...")
