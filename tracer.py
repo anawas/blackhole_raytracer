@@ -6,7 +6,7 @@ import scipy.ndimage as ndim
 import imageio.v2 as iio
 import random, sys, time, os
 import datetime
-
+from skimage.transform import resize
 import multiprocessing as multi
 import ctypes
 
@@ -25,7 +25,6 @@ except ImportError:  # we're on python 3
 
 import blackbody as bb
 import bloom
-
 import gc
 import curses
 
@@ -107,7 +106,6 @@ defaults = {
     "Diskmultiplier": "100.",
     "Gain": "1",
     "Normalize": "-1",
-    "Blurdo": "1",
     "Bloomcut": "2.0",
     "Airy_bloom": "1",
     "Airy_radius": "1.",
@@ -323,13 +321,15 @@ if SKY_TEXTURE == 'texture':
     if SRGBIN:
         # must do this before resizing to get correct results
         srgbtorgb(texarr_sky)
+
     if not LOFI:
         #   maybe doing this manually and then loading is better.
         logger.debug("(zooming sky texture...)")
-        # texarr_sky = iio.imresize(texarr_sky,2.0,interp='bicubic')
+        w,h = texarr_sky.shape[:2]
+        texarr_sky = resize(texarr_sky, (w*2, h*2))
         # imresize converts back to uint8 for whatever reason
         texarr_sky = texarr_sky.astype(float)
-        texarr_sky /= 255.0
+        # texarr_sky /= 255.0
 
 texarr_disk = None
 if DISK_TEXTURE == 'texture':
