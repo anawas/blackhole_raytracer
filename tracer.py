@@ -705,8 +705,13 @@ def raytrace_schedule(i, schedule, total_shared, q):  # this is the function run
                     k4 = RK4f(y + rkstep * k3, h2)
 
                     increment = rkstep / 6. * (k1 + 2 * k2 + 2 * k3 + k4)
-
                     velocity += increment[:, 3:6]
+                else:
+                    y = np.zeros((numChunk, 6))
+                    y[:, 0:3] = point
+                    y[:, 3:6] = velocity
+                    k1 = RK4f(y, h2)
+                    increment = STEP * k1
 
                 point += increment[:, 0:3]
 
