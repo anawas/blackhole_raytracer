@@ -1,8 +1,8 @@
 [lofi]
 
 Resolution=160,120
-Iterations=800
-Stepsize=0.04
+Iterations=2200
+Stepsize=0.08
 
 [hifi]
 
@@ -12,7 +12,7 @@ Stepsize=0.04
 
 [geometry]
 
-Cameraposition=0.,10.,-10.
+Cameraposition=10.,10,0.
 Fieldofview=1.0
 Lookat=0.,0.,0.
 Upvector=-0.,1.,0.
@@ -21,8 +21,8 @@ Distort=1
 [materials]
 
 Horizongrid=0
-Disktexture=blackbody
-Skytexture=none
+Disktexture=texture
+Skytexture=texture
 Skydiskratio=0.2
 Fogdo=0
 Fogmult=0.2

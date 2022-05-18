@@ -977,7 +977,7 @@ if __name__ == "__main__":
 
         logger.debug("--(radius: %3f, kernel pixel radius: %3f, maximum source brightness: %3f)", radd, kern_radius, mxint)
 
-        colour_bloomd = bloom.airy_convolve(colour_bloomd, radd)
+        colour_bloomd = bloom.airy_convolve(colour_bloomd, radd, kernel_radius=3.0*kern_radius)
 
         colour_bloomd = colour_bloomd.reshape((numPixels, 3))
 

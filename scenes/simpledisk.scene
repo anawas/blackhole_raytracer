@@ -12,7 +12,7 @@ Stepsize=0.04
 
 [geometry]
 
-Cameraposition=0.,1.,-10.
+Cameraposition=3.5,10.,-10.
 Fieldofview=1.5
 Lookat=0.,0.,0.
 Upvector=-0.,1.,0.
@@ -22,11 +22,11 @@ Diskouter=6.
 
 [materials]
 
-Horizongrid=1
-Disktexture=grid
+Horizongrid=0
+Disktexture=blackbody
 Skytexture=none
-Skydiskratio=0.2
+Skydiskratio=0.8
 Fogdo=0
 Fogmult=0.2
 Blurdo=0
-Airy_bloom=0
+Airy_bloom=3
